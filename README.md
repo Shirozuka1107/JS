@@ -89,9 +89,69 @@ if (counts[el]) {
   return counts;
 
 //Simplified method//
+
 Convert the forEach callback to use an expression body and replace the statements with a ternary.
 const getMode = (array) => {
   const counts = {};
 array.forEach(el => counts[el] = counts[el] ? counts[el] + 1 : 1)
   return counts;
+
+11/14/2024
+
+To calculate this, you will use a Set. A Set is a data structure that only allows unique values. If you pass an array into the Set constructor, it will remove any duplicate values.
+Start by creating an if statement. In the condition, create a Set with new Set() and pass it the Object.values() of your counts object. If the size property of this Set is equal to 1, that tells you every value appears the same number of times. In this case, return null from your function.
+if (new Set(Object.values(counts)).size === 1) {
+    return null;
+  }
+
+Now you need to find the value that occurs with the highest frequency. You'll use the Object.keys() method for this.
+Start by declaring a highest variable, and assigning it the value of the counts object's Object.keys() method.
+const highest = Object.keys(counts);
+
+Now you need to sort the values properly. Chain the .sort() method to your Object.keys() call.
+For the callback, you'll need to use the counts object to compare the values of each key. You can use the a and b parameters to access the keys. Then, return the value of counts[b] minus the value of counts[a].
+Finally, access the first element in the array using bracket notation to complete your highest variable.
+const highest = Object.keys(counts).sort((a,b) => counts[b]-counts[a])[0];
+
+Now chain the filter method to your latest Object.keys() call. The callback function should return whether the value of counts[el] is equal to your counts[highest].
+const mode = Object.keys(counts).filter((el) => counts[el] === counts[highest])
+
+Declare a getRange function that takes the same array parameter you have been using. Using Math.min(), Math.max(), and the spread operator, return the difference between the largest and smallest numbers in the list.
+const getRange = (array) => {
+  Math.min(...array), Math.max(...array);
+  return Math.max(...array) - Math.min(...array)
+};
+
+The next step is to square each of the differences. To square a value, you can use the ** operator. For example, 3 ** 2 would return 9.
+Declare a squaredDifferences variable, and assign it the value of differences.map(). For the callback, return the value of el squared.
+const squaredDifferences = differences.map ((el) => el ** 2)[0]
+
+Declare a sumSquaredDifferences variable, and assign it the value of squaredDifferences.reduce(). For the callback, return the sum of acc and el. Remember to set the initial value to 0.
+const sumSquaredDifferences = squaredDifferences.reduce((acc,el) => acc + el,0)
+
+Declare a variance variable, and assign it the value of array.reduce(). For the callback, pass in your standard acc and el parameters, but leave the function body empty for now. Don't forget to set the initial value to 0.
+const variance = array.reduce((acc,el) => {},0)
+
+Divide your .reduce() call by the length of the array (in your variance declaration). Then, return variance.
+const variance = array.reduce((acc, el) => {
+const difference = el - mean;
+const squared = difference ** 2;
+return acc + squared;
+}, 0) / array.length;
+return variance;
+
+Start by setting the onload property of window to an arrow function with no parameters. In the function, declare a container variable and assign it the value of getting the element by the id of "container".
+window.onload = () => {
+const container = document.getElementById("container")
+
+Set the className of the label element to "label", and set the textContent to the name parameter.
+label.className = "label";
+label.textContent = name;
+
+Finally, use the .appendChild() method to add your label element to the container element.
+container.appendChild(label)
+
+Declare an empty range function which takes a start and end parameter. Use the Array() constructor and implicitly return an empty array.
+const range = (start,end) => Array()
+
 
