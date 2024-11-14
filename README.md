@@ -140,18 +140,5 @@ return acc + squared;
 }, 0) / array.length;
 return variance;
 
-Start by setting the onload property of window to an arrow function with no parameters. In the function, declare a container variable and assign it the value of getting the element by the id of "container".
-window.onload = () => {
-const container = document.getElementById("container")
-
-Set the className of the label element to "label", and set the textContent to the name parameter.
-label.className = "label";
-label.textContent = name;
-
-Finally, use the .appendChild() method to add your label element to the container element.
-container.appendChild(label)
-
-Declare an empty range function which takes a start and end parameter. Use the Array() constructor and implicitly return an empty array.
-const range = (start,end) => Array()
 
 
