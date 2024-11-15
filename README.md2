@@ -18,3 +18,20 @@ const range = (start, end) => Array(end - start+1);
 
 Convert your start and end values in your range() call to numbers by using the .charCodeAt() method on them, passing the number 0 as the argument to that method.
 const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0));
+
+Pass a callback function that takes code as the parameter and implicitly returns the value of passing code to the String.fromCharCode() method.
+const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0)).map((code) =>  String.fromCharCode(code));
+
+Call range() with 1 and 99 as the arguments, and chain the .forEach() method. Pass the .forEach() method an empty callback which takes number as the parameter.
+range(1,99).forEach((number) => ());
+
+In your callback, you will need to make two function calls. Start by calling createLabel() and pass number as the argument. You should see some numbers appear in your spreadsheet.
+Then call the .forEach() method on your letters array. Pass an empty callback function which takes a letter parameter.
+createLabel(number);
+letters.forEach(letter => {});
+})
+
+//Important for reduce() method, requires accumlator + element//
+Declare a sum function that takes a nums parameter, which will be an array of numbers. It should return the result of calling reduce on the array to sum all of the numbers.
+const sum = (nums) => nums.reduce((acc,el) => acc + el,0);
+
