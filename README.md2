@@ -35,3 +35,8 @@ letters.forEach(letter => {});
 Declare a sum function that takes a nums parameter, which will be an array of numbers. It should return the result of calling reduce on the array to sum all of the numbers.
 const sum = (nums) => nums.reduce((acc,el) => acc + el,0);
 
+Declare an isEven function, which takes a num parameter and returns true if the number is even, and false otherwise. Use the modulo operator % to determine if a number is even or odd.
+const isEven = num => num % 2 === 0; 
+
+
+
