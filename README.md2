@@ -48,5 +48,14 @@ You should use the slice() method for creating a shallow copy of the array.
 const median = (nums) => {
 const sorted = nums.slice().sort((a, b) => a - b);}
 
+Using ternary syntax, check if length is even using your isEven function. If it is, return the average of the number at the middle index and the number after that. If it's odd, return the number at the middle index – you'll need to round the middle value up.
+return isEven(length) ? average([sorted[middle], sorted[middle+1]])
+: sorted[Math.ceil(middle)]
+
+Because the change event is triggering on an input element, the element will have a value property that represents the current value of the input.
+Assign the value property of element to a new variable called value, and use .replace() to remove all whitespace.
+const value = element.value.replace(/\s/g, '')
+
+
 
 
