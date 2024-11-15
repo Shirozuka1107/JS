@@ -38,5 +38,14 @@ const sum = (nums) => nums.reduce((acc,el) => acc + el,0);
 Declare an isEven function, which takes a num parameter and returns true if the number is even, and false otherwise. Use the modulo operator % to determine if a number is even or odd.
 const isEven = num => num % 2 === 0; 
 
+The average can be calculated by dividing the sum of all the numbers in the array by the length of the array. Remember that you have a sum function you can use.
+const average = nums => sum(nums) / nums.length; 
+
+Your next function will calculate the median value of an array of numbers. Start by declaring a median arrow function that takes a nums parameter.
+In the function, declare a sorted variable and assign it the value of sorting a copy of the nums array.
+You should use the slice() method for creating a shallow copy of the array.
+const median = (nums) => {
+const sorted = nums.slice().sort((a, b) => a - b);}
+
 
 
