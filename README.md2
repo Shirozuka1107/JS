@@ -16,6 +16,7 @@ Your array will need to be the size of the range. You can calculate this by find
 Pass this calculation as the argument for your Array() constructor.
 const range = (start, end) => Array(end - start+1);
 
+11/15/2024
 Convert your start and end values in your range() call to numbers by using the .charCodeAt() method on them, passing the number 0 as the argument to that method.
 const charRange = (start, end) => range(start.charCodeAt(0), end.charCodeAt(0));
 
