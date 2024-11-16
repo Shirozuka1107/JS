@@ -75,4 +75,9 @@ const rangeRegex = /([A-J])/
 Add a capture group after your letter capture group. Your new capture group should match one or two digits – the first digit should be 1 through 9, and the second digit should be 0 through 9. The second digit should be optional.
 const rangeRegex = /([A-J])([1-9][0-9]?)/;
 
+Declare a rangeFromString arrow function that takes two parameters, num1 and num2. The function should implicitly return the result of calling range with num1 and num2 as arguments.
+const rangeFromString = (num1,num2) => range(parseInt(num1), parseInt(num2));
+
+
+
 
