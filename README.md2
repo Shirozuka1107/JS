@@ -56,6 +56,23 @@ Because the change event is triggering on an input element, the element will hav
 Assign the value property of element to a new variable called value, and use .replace() to remove all whitespace.
 const value = element.value.replace(/\s/g, '')
 
+16/11/2024
+Now you need to check if the value does not include the id of the element. Create an if condition to do so.
+if (!value.includes(element.id)) {
+}
 
+Use the && operator to add a second condition to your if statement that also checks if the first character of value is "=".
+if (!value.includes(element.id) && value.startsWith("=")){
+}
+
+In your evalFormula, declare an idToText arrow function which takes an id parameter.
+Your idToText function should return the result of calling .find() on the cells array with a callback function that takes an cell parameter and returns cell.id === id.
+const idToText = (id) => cells.find(cell => cell.id === id);
+
+Start by declaring a rangeRegex variable and assign it a regular expression that matches A through J (the range of columns in your spreadsheet). Use a capture group with a character class to achieve this
+const rangeRegex = /([A-J])/
+
+Add a capture group after your letter capture group. Your new capture group should match one or two digits – the first digit should be 1 through 9, and the second digit should be 0 through 9. The second digit should be optional.
+const rangeRegex = /([A-J])([1-9][0-9]?)/;
 
 
