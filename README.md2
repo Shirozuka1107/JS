@@ -78,6 +78,41 @@ const rangeRegex = /([A-J])([1-9][0-9]?)/;
 Declare a rangeFromString arrow function that takes two parameters, num1 and num2. The function should implicitly return the result of calling range with num1 and num2 as arguments.
 const rangeFromString = (num1,num2) => range(parseInt(num1), parseInt(num2));
 
+11/17/2024
 
+In your elemValue function, declare a function called inner which takes a character parameter.
+Then, return your inner function.
+const inner = (character) => {} return inner;
 
+Use the same syntax as your addCharacters function to update your elemValue function. It should no longer declare inner, but should return the function implicitly.
+const elemValue = num => character => idToText(character+num) ;
 
+You can pass a function reference as a callback parameter. A function reference is a function name without the parentheses. For example:
+Example Code
+const myFunc = (val) => `value: ${val}`;
+const array = [1, 2, 3];
+const newArray = array.map(myFunc);
+The .map() method here will call the myFunc function, passing the same arguments that a .map() callback takes. The first argument is the value of the array at the current iteration, so newArray would be [value: 1, value: 2, value: 3].
+Pass a reference to your elemValue function as the callback to your .map() method.
+const addCharacters = character1 => character2 => num => charRange(character1, character2).map(elemValue);
+
+The second argument to the .replace() method does not have to be a string. You can instead pass a callback function to run more complex logic on the matched string.
+The callback function takes a few parameters. The first is the matched string. Pass an empty callback function to your .replace() call, and give it a match parameter.
+const rangeExpanded = x.replace(rangeRegex, (match) => {});
+
+Give your callback function four more parameters to match those capture groups: char1, num1, char2, and num2. char will be short for character.
+const rangeExpanded = x.replace(rangeRegex, (match,char1,num1,char2,num2) => {});
+
+Declare a cellExpanded variable and assign it the value of calling .replace() on your rangeExpanded variable. Pass it your cellRegex and an empty callback function. The callback function should take a match parameter.
+const cellExpanded = rangeExpanded.replace(cellRegex, (match) => {})
+
+Update your callback function to return the result of calling idToText() with match as the argument. Remember that your regular expression is case-insensitive, so you will need to call toUpperCase() on match before passing it to idToText().
+const cellExpanded = rangeExpanded.replace(cellRegex, match => idToText(match.toUpperCase());
+
+Now that you have your infix functions, you need a way to evaluate them. Declare an infixEval function which takes two parameters, str and regex. It should implicitly return the .replace() method of str, with regex and an empty callback as the arguments.
+const infixEval = (str,regex) => str.replace(regex , () => {});
+
+infixToFunction[operator] returns a function. Call that function directly, passing arg1 and arg2 as the arguments.
+const infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](arg1,arg2))
+
+Wrap each of your infixToFunction[operator] arguments in a parseFloat() call.
