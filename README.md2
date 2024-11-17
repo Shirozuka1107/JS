@@ -123,4 +123,29 @@ Your function should return a boolean value. Remember that you can use the test(
 const regex = /([\d.]+)([*\/])([\d.]+)/;
 return regex.test(str)
 
+If infixEval does not find any matches, it will return the str value as-is. Using a ternary expression, check if str2 is equal to str. If it is, return str, otherwise return the result of calling highPrecedence() on str2.
+return str === str2 ? str : highPrecedence(str2)
+
+Declare an infix variable, and assign it a regular expression that matches a number (including decimal numbers) followed by a + or - operator followed by another number.
+const infix = /([\d.]+)([+-])([\d.]+)/gi
+
+Declare a toNumberList function that takes an args parameter and implicitly returns the result of splitting the args by commas. Then chain a map method to your split method and pass in parseFloat as the argument to the map method.
+const toNumberList = args => args.split(",").map(parseFloat)
+
+The fn parameter will be passed the name of a function, such as "SUM". Update apply to implicitly return the function from your spreadsheetFunctions object using the fn variable as the key for the object access.
+Remember that fn might not contain a lowercase string, so you'll need to convert it to a lowercase string.
+const apply = (fn, args) => spreadsheetFunctions[fn.toLowerCase()]
+//someObj[someKey.toLowerCase()]//
+
+Your apply function is returning the spreadsheet function, but not actually applying it. Update apply to call the function. Pass in the result of calling toNumberList with args as an argument.
+const apply = (fn, args) => spreadsheetFunctions[fn.toLowerCase()](toNumberList(args)
+
+Now your applyFunction needs to return a result. Return the result of calling the .replace() method on str2. Pass your functionCall regex and an empty callback.
+return str2.replace(functionCall, () => {})
+
+Update the callback function to take match, fn, and args as parameters. It should implicitly return the result of checking whether spreadsheetFunctions has its own property of fn.
+Remember to make fn lower case.
+return str2.replace(functionCall, (match,fn,args) => spreadsheetFunctions.hasOwnProperty(fn.toLowerCase())
+
+
 
