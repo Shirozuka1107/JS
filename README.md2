@@ -116,3 +116,11 @@ infixToFunction[operator] returns a function. Call that function directly, passi
 const infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](arg1,arg2))
 
 Wrap each of your infixToFunction[operator] arguments in a parseFloat() call.
+const infixEval = (str, regex) => str.replace(regex, (_match, arg1, operator, arg2) => infixToFunction[operator](parseFloat(arg1),parseFloat(arg2)))
+
+In your highPrecedence function, declare a variable using const and assign it a regex that checks if the string passed to the str parameter matches the pattern of a number followed by a * or / operator followed by another number.
+Your function should return a boolean value. Remember that you can use the test() method for this.
+const regex = /([\d.]+)([*\/])([\d.]+)/;
+return regex.test(str)
+
+
