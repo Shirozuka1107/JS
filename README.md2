@@ -147,5 +147,36 @@ Update the callback function to take match, fn, and args as parameters. It shoul
 Remember to make fn lower case.
 return str2.replace(functionCall, (match,fn,args) => spreadsheetFunctions.hasOwnProperty(fn.toLowerCase())
 
+Use the ternary operator to turn your .hasOwnProperty() call into the condition. If the object has the property, return the result of calling apply with fn and args as arguments. Otherwise, return match.
+return str2.replace(functionCall, (match, fn, args) => spreadsheetFunctions.hasOwnProperty(fn.toLowerCase()) ? apply(fn,args) : match);
 
+Use a ternary to check if functionExpanded is equal to the original string x. If it is, return functionExpanded, otherwise return the result of calling evalFormula() again with functionExpanded and cells as arguments.
+return functionExpanded === x ? functionExpanded : evalFormula(functionExpanded,cells)
 
+Inside your if statement, set the value of the element to be the result of your evalFormula() function. Do not pass any arguments yet.
+element.value = evalFormula();
+
+Add an even property to your spreadsheetFunctions. It should take a nums parameter, and return the result of filtering the nums array to only include even numbers. Use a reference to your isEven function to help.
+even: nums => nums.filter(isEven)
+
+Add a firsttwo property which takes a nums parameter and returns the first two elements of the nums array in order. Then add a lasttwo property which returns the last two elements of the nums array in order.
+firsttwo : nums => [nums[0], nums[1]],
+lasttwo : nums => [nums[nums.length-2], nums[nums.length-1]]
+
+Add a has2 property which returns whether the nums array has 2 in the values, and an increment property which returns nums with every value incremented by one.
+has2: nums => nums.includes(2),
+increment: nums => nums.map(nums => nums + 1)
+
+Add a someeven property to your spreadsheetFunctions - use the .some() method to check if any element in the array is even.
+someeven: nums => nums.some(isEven),
+
+Create a random property. This property should use the first two numbers from an array to generate a random whole number. The range for this number starts at the first number (inclusive) of the two and ends just before the sum of these two numbers. Use the Math.floor() and Math.random() methods for the calculation.
+random: ([x, y]) => Math.floor(Math.random() * y + x),
+
+The last function has a few approaches to implement, and you are free to choose whichever approach you would like.
+
+Add a nodupes property which returns nums with all duplicate values removed. For example, [2, 1, 2, 5, 3, 2, 7] should return [2, 1, 5, 3, 7].
+nodupes: nums => [...new Set(nums).values()],
+
+Finally, to handle potential edge cases, add an empty string property (you will need to use quotes) which is a function that takes a single argument and returns that argument.
+"" : nums => nums,
