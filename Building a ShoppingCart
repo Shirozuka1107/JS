@@ -14,3 +14,22 @@ products.forEach(
     `;
   }
 );
+
+You need to find the product that the user is adding to the cart. Remember that arrays have a .find() method. In your addItem function, declare a product variable, and assign it the value of calling the .find() method on the products array.
+For the callback to .find(), pass a function that takes a single parameter item, and returns whether the id property of item is strictly equal to the id parameter passed to addItem.
+ addItem(id, products) {
+const product = products.find((item) => item.id === id);
+  }
+
+Use const and destructuring to extract name and price variables from product.
+const {name,price} = product;
+
+Now you need to push the product into the cart's items array. Remember to use the this keyword.
+this.products = this.items.push(product);
+
+In your forEach callback, you need to update the totalCountPerProduct object. Using the id of the current dessert as your property, update the value of the property to be the current value plus one. Do not use the addition assignment operator for this.
+ totalCountPerProduct[dessert.id] = totalCountPerProduct[dessert.id] + 1;
+
+Use .getElementById() to get the matching element - you'll be setting the id value to product-count-for-id${product.id}, so use a template literal to query that value.
+Assign your query to a currentProductCountSpan variable.
+const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`)
