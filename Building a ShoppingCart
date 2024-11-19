@@ -33,3 +33,60 @@ In your forEach callback, you need to update the totalCountPerProduct object. Us
 Use .getElementById() to get the matching element - you'll be setting the id value to product-count-for-id${product.id}, so use a template literal to query that value.
 Assign your query to a currentProductCountSpan variable.
 const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`)
+
+The behaviour of the addItem method needs to change if the product is already in the cart or not. Create a ternary that checks if the current product is already in the cart. Use undefined for both the truthy and falsy expressions to avoid a syntax error.
+return currentProductCount > 1 ? undefined : undefined;
+
+For your truthy expression, removing the undefined, you need to update the textContent of the currentProductCountSpan to be the currentProductCount followed by an x. Use a template literal to do so.
+currentProductCount > 1 ? currentProductCountSpan.textContent = `${currentProductCount}x` : undefined
+
+For your falsy expression, you'll need to add new HTML to your productsContainer. Start by removing the undefined, then use the addition assignment operator and template literal syntax to add a div with the class set to product and the id set to dessert${id} to the innerHTML property of the productsContainer.
+productsContainer.innerHTML += `<div class="product" id="dessert${id}"</div>`
+
+Add your callback function to the forEach method. It should take a btn parameter. Then, in the callback, add an event listener to the btn. The event listener should listen for a click event, and should take another callback with an event parameter. The second callback should be empty.
+(btn) => btn.addEventListener("click",(event) => {})
+
+In your event listener callback, call the .addItem() method of your cart object, and pass in the event.target.id. Remember that the id here will be a string, so you need to convert it to a number.
+Pass your products array as the second argument.
+cart.addItem(Number(event.target.id),products) = () => {};
+
+Now assign the textContent of the showHideCartSpan variable the result of a ternary expression which checks if isCartShowing is true. If it is, set the textContent to "Hide", otherwise set it to "Show".
+showHideCartSpan.textContent = isCartShowing ? "Hide" : "Show";
+
+Finally, update the display property of the style object of the cartContainer variable to another ternary which checks if isCartShowing is true. If it is, set the display property to "block", otherwise set it to "none".
+cartContainer.style.display = isCartShowing ? "block" : "none";
+
+You need a way to access the total number of items in the cart. The best way to do this is to add another method to your ShoppingCart class, rather than accessing the items array directly.
+Add a getCounts method to the ShoppingCart class. It should return the number of items in the items array.]
+getCounts() {
+return this.items.length;
+}
+
+You also need to update the total price of the cart when the user adds an item. Create a calculateTotal method in the ShoppingCart class.
+In that method, declare a subTotal variable and use the reduce method on the items array to calculate the sum of the price property of each item in the array. Use total and item as the parameters for your callback.
+Remember to set your initial value in the reduce method.
+ calculateTotal(){
+   const subTotal = this.items.reduce((total, item)=> total + item.price, 0);}
+
+Your calculateTaxes method should return the value of the taxRate (divided by 100, to convert it to a percent) multiplied by the amount parameter.
+For clarity, wrap the taxRate / 100 calculation in parentheses.
+  calculateTaxes(amount) {
+return (this.taxRate/100) * amount;
+  }
+
+Because of the way computers store and work with numbers, calculations involving decimal numbers can result in some strange behavior. For example, 0.1 + 0.2 is not equal to 0.3. This is because computers store decimal numbers as binary fractions, and some binary fractions cannot be represented exactly as decimal fractions.
+We want to clean up the number result from your calculation. Wrap your calculation in parentheses (don't include the return statement!) and call the .toFixed() method on it. Pass the .toFixed() method the number 2 as an argument. This will round the number to two decimal places and return a string.
+  calculateTaxes(amount) {
+    return ((this.taxRate / 100) * amount).toFixed(2);
+  }
+
+You're going to update the HTML in this method as well. Set the textContent of the cartSubTotal to be the value of subTotal to a fixed 2 decimal places. Use template literal syntax to add the dollar sign to the beginning of the value.
+cartSubTotal.textContent = `$${subTotal.toFixed(2)}`
+
+The first thing you should do is check if the items array is empty. If it is, display an alert to the user with the text Your shopping cart is already empty, then return from the function.
+Remember that 0 is a falsy value, so you can use the ! operator to check if the array is empty.
+After displaying the alert, return from the function to stop execution.
+  clearCart() {
+if (!this.items.length ) {
+  alert("Your shopping cart is already empty");
+  return;
