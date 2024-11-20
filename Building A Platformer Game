@@ -7,3 +7,48 @@ To fix that, you will need to add a condition to stop the player from falling pa
 Create an empty if statement that checks if the sum of the player's y position, height, and y velocity is less than or equal to the height of the canvas.
 if (this.position.y + this.height + this.velocity.y <= canvas.height) {}
 
+To visualize the player on the screen, you need to draw it on the canvas.
+Inside the startGame function, call the .draw() method of your player object.
+player.draw()
+
+Inside the keys object, add a new key called rightKey and assign it an object with the key-value pair of pressed: false.
+Below the rightKey object, create a leftKey object and assign it an object with the key-value pair of pressed: false.
+  rightKey: {
+    pressed: false
+  },
+  leftKey: {
+    pressed: false
+  }
+};
+
+The next step is to add the logic for increasing or decreasing a player's velocity based on if they move to the left or right of the screen.
+Inside the animate function, create an if statement where the condition checks if the right key was pressed and the player's x position is less than proportionalSize(400).
+You need to use the proportionalSize function here to make sure the player's x position is always proportional to the screen size.
+if (keys.rightKey.pressed && player.position.x < proportionalSize(400)) {
+
+In the game, the player will interact with different checkpoints. If the isCheckpointCollisionDetectionActive is false, then you will need to stop the player's movements on the x and y axes.
+Start by creating an if statement where the condition checks if the isCheckpointCollisionDetectionActive is false.
+Remember that you can use the ! operator to check if the variable is false.
+if(!isCheckpointCollisionDetectionActive) {}
+
+Below the if statement, create a switch statement with a value of key.
+switch(key) {}
+
+The first case you will want to add is when the left arrow key is pressed.
+
+Inside the switch statement, add a new case called "ArrowLeft".
+case "ArrowLeft":
+
+The next step is to create the platforms and platform logic.
+Start by creating a new Platform class.
+class Platform {}
+
+Inside the platformPositions, you will need to add the list of positions for the platforms.
+Add a new object that has an x property with a value of 500 and a y property with a value of proportionalSize(450).
+const platformPositions = [{
+  x : 500,
+  y : proportionalSize(450)
+}
+
+
+];
