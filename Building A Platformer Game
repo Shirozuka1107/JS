@@ -1,0 +1,9 @@
+The width and the height of the main player, platforms and checkpoints will be proportional sized relative to the innerHeight of the browser screen. The goal is to make the game responsive and visually consistent across different screen sizes.
+Inside your proportionalSize function, you will need to return a ternary that checks if innerHeight is less than 500. If so, return Math.ceil((size / 500) * innerHeight), otherwise return size.
+return innerHeight < 500 ? Math.ceil((size/500)*innerHeight) : size;
+
+Right now, when the player jumps up, it is possible for it to move past the height of the canvas.
+To fix that, you will need to add a condition to stop the player from falling past the height of the canvas.
+Create an empty if statement that checks if the sum of the player's y position, height, and y velocity is less than or equal to the height of the canvas.
+if (this.position.y + this.height + this.velocity.y <= canvas.height) {}
+
