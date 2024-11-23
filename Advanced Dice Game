@@ -46,3 +46,38 @@ Build out the logic such that clicking on the rollDiceBtn generates five random 
     listOfAllDice[i].textContent = random;
     }
 });
+
+For each round in the game, users are allowed to roll the dice a maximum of three times. If a user clicks the rollDiceBtn but has already made three rolls, the browser should show an alert() to indicate they must select a score - otherwise, it should roll the dice as it currently does and increment the rolls variable.
+rollDiceBtn.addEventListener("click", () => {
+  if (rolls === 3) {
+    alert("You have made 3 rolls this round. Please select a score")
+  } else {
+    rolls++
+  rollDice();
+  }
+});
+
+You'll need to be able to update your rolls and your round on the page. Create an updateStats function to update the text of those two elements with the appropriate values. Then, call that function when your rollDiceBtn is clicked and the dice are rolled.
+const updateStats = () => {
+  rollsElement.textContent = rolls;
+  roundElement.textContent = round;
+};
+
+rollDiceBtn.addEventListener("click", () => {
+  if (rolls === 3) {
+    alert("You have made three rolls this round. Please select a score.");
+  } else {
+    rolls++;
+    rollDice();
+    updateStats();
+  }
+});
+
+Each time you roll the dice, you could end up with a Three of a kind, Four of a kind, Full house, Straight or a random combination of numbers. Based on the outcome, you can make a selection and add points to your score.
+Start by creating a function called updateRadioOption that takes an index and a score value as arguments. It should set the scoreInputs at that index to be enabled, set the value of that input to the score, and display , score = ${score} in the correct scoreSpans element.
+function updateRadioOption(index,score) {
+  scoreInputs[index].disabled = false;
+  scoreInputs[index].value =  score;
+  scoreSpans[index].textContent = `, score = ${score}`;
+}
+
