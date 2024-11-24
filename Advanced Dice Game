@@ -81,3 +81,125 @@ function updateRadioOption(index,score) {
   scoreSpans[index].textContent = `, score = ${score}`;
 }
 
+If you roll the dice and get a Three of a kind or Four of a kind, then you can get a score totalling the sum of all five dice values. To calculate this, create a getHighestDuplicates function which takes an array of numbers. The function will need to count how many times each number is found in the array.
+If a number appears four or more times, you will need to update the Four of a Kind option with your updateRadioOption function. If a number appears three or more times, you will need to update the Three of a Kind option. In both cases, the score value should be the sum of all five dice.
+Regardless of the outcome, the final option should be updated with a score of 0. Make sure to call your getHighestDuplicates when the dice are rolled.
+const getHighestDuplicates = array => {
+  let duplicates = {};
+
+  array.forEach(number => {
+    duplicates[number] = (duplicates[number] || 0) + 1;
+  });
+  let maxCount = 0;
+  let maxDuplicate
+  let sum = array.reduce((sum,value) => sum + value, 0)
+
+  for (const[duplicate,count] of Object.entries(duplicates)) {
+    if (count > maxCount) {
+      maxCount = count;
+      maxDuplicate = duplicate;
+    }
+  }
+  if (maxCount > 3) {
+    updateRadioOption(1,sum)
+  } 
+  if (maxCount > 2) {
+    updateRadioOption(0, sum)
+  } 
+  updateRadioOption(5,0)
+}
+ getHighestDuplicates(diceValuesArr);
+
+Before each dice roll, you will need to reset the values for the score inputs and spans so a new value can be displayed.
+Create a resetRadioOptions function. Your function should iterate through the scoreInputs to disable them and remove the checked attribute. Your function should also remove the text from each of the scoreSpans. Finally, call this function before you roll the dice.
+const resetRadioOptions = () => {
+  for (const input of scoreInputs) {
+  input.disabled = true;
+  input.checked = false;
+} 
+  for (const span of scoreSpans) {
+    span.textContent = "";
+  }
+}
+resetRadioOptions();
+
+When you roll the dice and make a selection, you are not able to keep the score you selected and move onto the next round.
+Create an updateScore function to add this functionality. Your function will need two parameters for the user selected score option. The first parameter will be passed the value of the radio button, remember this is a string, and the second parameter will be passed the id value of the radio button, which is the type of score they achieved.
+The function will need to add the user selected value to the score, update the total score text on the page, and add a new li element to the score history ul element, using the format ${achieved} : ${selectedValue} for the li element content.
+const updateScore = (selectedValue, achieved) => {
+    score += parseInt(selectedValue, 10); 
+    totalScoreElement.textContent = score;
+    scoreHistory.innerHTML += `<li>${achieved} : ${selectedValue}</li>`;
+};
+
+After a user makes a selection, they should be able to keep that score and move onto the next round by clicking the keepScoreBtn.
+When that button is clicked, you should find which radio option is checked and capture its value and id attributes. If the user has selected an option, call your functions to update the score, reset the radio options, and add the value and id to the score history.
+If the user has not selected an option, display an alert informing them to do so.
+keepScoreBtn.addEventListener("click", ()  => {
+  let value
+  let id
+
+  for (const input of scoreInputs)
+  if(input.checked) {
+    value = input.value;
+    id = input.id;
+    break
+  }
+if (value) {
+  rolls = 0;
+  round++;
+  updateStats();
+  resetRadioOptions();
+  updateScore(value,id);
+} else {
+  alert("Select a score")
+}
+});
+
+At this point in the game, you are able to roll the dice, make a selection and play for a few rounds. However, you should notice that there is no end to the game and there are infinite rounds. According to the rules, there should be a total of six rounds and then the game ends with the final score.
+After running your logic when the user selects a score, you should check if 6 rounds have been played. If so, display an alert with the user's final score after 500 milliseconds.
+   if (round === 6) {
+      setTimeout(() => {
+        alert(`Final Score: ${score}`)
+      }, 500)
+    }
+
+If you go through six rounds of the game, you should see the alert show up with your final score. But when you dismiss the alert, you are able to keep playing for more rounds past the original six. To fix this, you will need to reset the game.
+Declare a resetGame function to do so. Reset all of the listOfAllDice elements to display 0, update score and rolls to be 0, update round to be 1, set the totalScoreElement text to the user's total score, clear the score history by setting it to an empty string, set the rollsElement text to the number of rolls, and set the roundElement text to the current round. Finally, reset all of the radio buttons to their initial states.
+Call this function after displaying the alert with the final score.
+const resetGame = () => {
+  listOfAllDice.forEach(element => element.textContent = 0);
+
+  score = 0;
+  round = 1;
+  rolls = 0;
+  
+  
+  totalScoreElement.textContent = score;
+  rollsElement.textContent = rolls;
+  roundElement.textContent = round;
+
+  resetRadioOptions();
+};
+
+If the user rolls three of one number, and two of another number, this is called a full house. Declare a detectFullHouse function that accepts a single argument. The function will be passed the diceValuesArr array when called.
+Your detectFullHouse function should check if the user has rolled three of one number and two of another number. If so, it should update the third radio button to display a score of 25, with the correct attributes. Regardless, it should always update the last radio button to display a score of 0, with the correct attributes.
+Don't forget to call your new function when the dice are rolled.
+const detectFullHouse = (arr) => {
+    const counts = {};
+
+  for (const num of arr) {
+    if (counts[num]) {
+      counts[num]++;
+    } else {
+      counts[num] = 1;
+    }
+  }
+  const values = Object.values(counts); 
+
+  if(values.includes(3) && values.includes(2)){
+    updateRadioOption(2, 25)
+  } 
+    updateRadioOption(5, 0);
+}
+
