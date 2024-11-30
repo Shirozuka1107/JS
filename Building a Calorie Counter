@@ -1,0 +1,57 @@
+Now you need to target the .input-container element within the element that has your targetId. Declare a new targetInputContainer variable, and assign it the value of document.querySelector(). Use concatenation to separate targetId and '.input-container' with a space, and pass that string to querySelector().
+function addEntry() {
+  const targetId = '#' + entryDropdown.value;
+  const targetInputContainer = document.querySelector(targetId + ' .input-container')
+}
+
+JavaScript has a feature called template literals, which allow you to interpolate variables directly within a string. Template literals are denoted with backticks ``, as opposed to single or double quotes. Variables can be passed in to a template literal by surrounding the variable with ${} – the value of the variable will be inserted into the string.
+
+For example:
+
+Example Code
+const name = "Naomi";
+const templateLiteral = `Hello, my name is ${name}~!`;
+console.log(templateLiteral);
+The console will show the string "Hello, my name is Naomi~!".
+
+Replace your concatenated string in the querySelector with a template literal – be sure to keep the space between your targetId variable and .input-container.
+function addEntry() {
+  const targetId = '#' + entryDropdown.value;
+  const targetInputContainer = document.querySelector(`${targetId} .input-container`);
+}
+
+Thanks to template literals, you actually don't need the targetId variable at all. Remove that variable, and update your template literal to replace targetId with entryDropdown.value – remember to add # before that, in the string.
+function addEntry() {
+  const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
+}
+
+Each entry will have a text input for the entry's name, and a number input for the calories. To get a count of the number of entries, you can query by text inputs. Note that you cannot query by number inputs, as you have an extra number input for the user's calorie budget.
+Pass the string input[type="text"] to the querySelectorAll() method. Remember that you will need to use single quotes for your string, so that you can use double quotes within.
+This will return a NodeList of all the text inputs in the form. You can then access the length property of the NodeList to get the number of entries. Do this on the same line.
+function addEntry() {
+  const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
+  const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length;
+}
+
+Browsers have a built in alert() function, which you can use to display a pop-up message to the user. The message to display is passed as the argument to the alert() function.
+
+Using a template literal, in your if block, call the alert() function to tell the user "Invalid Input: ", followed by the first value in the invalidInputMatch array.
+function getCaloriesFromInputs(list) {
+  let calories = 0;
+
+  for (const item of list) {
+    const currVal = cleanInputString(item.value);
+    const invalidInputMatch = isInvalidInput(currVal);
+
+    if (invalidInputMatch) {
+        alert(`Invalid Input: ${invalidInputMatch[0]}`)
+    }
+  }
+}
+
+You will be attaching this function to the submit event of the form. The submit event is triggered when the form is submitted. The default action of the submit event is to reload the page. You need to prevent this default action using the preventDefault() method of your e parameter.
+Add a line to your calculateCalories function that calls the preventDefault() method on the e parameter. Then, reset your global error flag to false.
+function calculateCalories(e) {
+e.preventDefault();
+isError = false;
+}
