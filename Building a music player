@@ -1,0 +1,33 @@
+textContent sets the text of a node and allows you to set or retrieve the text content of an HTML element.
+
+Example Code
+<div id="example">This is some text content</div>
+Example Code
+const element = document.getElementById('example');
+console.log(element.textContent); // Output: This is some text content
+You can use a ternary operator to conditionally set the text content value. Here is an example of assigning the result of a ternary operator to a variable:
+
+Example Code
+const example = condition ? "I'm true" : "I'm false";
+Use a ternary operator to check if currentTitle evaluates to a truthy value. If it does, set playingSong.textContent to currentTitle. Otherwise, set it to an empty string.
+
+Then below that, use a ternary operator to check if currentArtist is truthy. If so, set songArtist.textContent to currentArtist. Otherwise, set it to empty string.
+
+  playingSong.textContent = currentTitle ? currentTitle : "";
+  songArtist.textContent = currentArtist ? currentArtist : "";
+
+Use the filter() method to remove the song object that matches the id parameter from the userData?.songs array.
+
+The filter method keeps only the elements of an array that satisfy the callback function passed to it:
+
+Example Code
+const numArr = [1, 10, 8, 3, 4, 5]
+const numsGreaterThanThree = numArr.filter((num) => num > 3);
+
+console.log(numsGreaterThanThree) // Output: [10, 8, 4, 5]
+Use the filter() method on userData?.songs. Pass in song as the parameter of the arrow function callback and use implicit return to check if song.id is strictly not equal to id. Assign all of that to the userData.songs.
+
+Note: You should not use optional chaining when you assign the result of userData?.songs.filter to userData.songs because the allSongs array will not be undefined or null at that point.
+const deleteSong = (id) => {
+ userData.songs = userData?.songs.filter((song) => song.id !== id)
+}
