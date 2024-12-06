@@ -1,0 +1,28 @@
+Below the team property, add four property key-value pairs.
+
+A key named sport and a string value of "Football".
+A key named year and a number value of 1986.
+A key named isWorldCupWinner and a boolean value set to true.
+A new key called headCoach with a value of an empty object.
+
+const myFavoriteFootballTeam = {
+  team: "Argentina",
+  sport: "Football",
+  year: 1986,
+  isWorldCupWinner: true,
+  headCoach: {},
+
+};
+
+The next step is to access the key called sport from the myFavoriteFootballTeam object and assign it to a new const variable called sport.
+
+Remember you can use dot notation for this.
+const sport = myFavoriteFootballTeam.sport;
+
+The next step is to create a new array that will be responsible for adding the player card information to the page.
+
+Inside the setPlayerCards function, start by adding the map method to arr that will take in an empty callback function. Then, use the addition assignment += operator to assign the new array to playerCards.innerHTML.
+
+Remember that the innerHTML property gets, or in this case, sets the HTML markup for the playerCards element.
+playerCards.innerHTML += arr.map(() => {});
+
