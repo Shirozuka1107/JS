@@ -5,3 +5,60 @@ The keydown event fires every time a user presses a key on their keyboard, and i
 Chain .addEventListener() to numberInput. The event listener should listen for keydown events and take an empty arrow function as a callback.
 numberInput.addEventListener("keydown", () => {});
 
+Next, you need to check if the value returned by the parseInt() function is a number or not.
+
+To do that, you can use the isNaN() function. This function takes in a string or number as an argument, and returns true if it evaluates to NaN. For example:
+
+Example Code
+isNaN("test"); // true
+isNaN(2); // false
+isNaN("3.5"); // false
+Update the second condition in your if statement to use the isNaN() function to check if the value returned by parseInt() is NaN.
+
+Also, as we mentioned in step 1 that we are considering only positive numbers, we should add a third condition in if statement to check whether the number is less than 0 (i.e negative numbers).
+Example Code
+ 6 < 0; // false
+-1 < 0; // true
+-8 < 0; // true
+ 0 < 0; //false
+if (!numberInput.value || isNaN(parseInt(numberInput.value)) || parseInt(numberInput.value) < 0) {
+  }
+
+Within your checkUserInput function, remove the console.log() statement. Then, call the decimalToBinary function and pass in the value of numberInput as an argument. Also, make sure to use the parseInt() function to convert the input into a number.
+decimalToBinary(parseInt(numberInput.value));
+
+You have set the id attribute for your paragraph elements to the obj.inputVal property.
+
+Now, use getElementById to select the element with that attribute value, again using the obj.inputVal property.
+document.getElementById(obj.inputVal)
+
+Now that you've targeted the correct element, you can update its text after the delay you specified earlier.
+
+Using the .getElementById() method, set the textContent property of the targeted element equal to the msg property of the current object.
+document.getElementById(obj.inputVal).textContent = obj.msg;
+
+Arrays have a .some() method. Like the .filter() method, .some() accepts a callback function which should take an element of the array as the argument. The .some() method will return true if the callback function returns true for at least one element in the array.
+
+Here is an example of a .some() method call to check if any element in the array is an uppercase letter.
+
+Example Code
+const arr = ["A", "b", "C"];
+arr.some(letter => letter === letter.toUpperCase());
+Use the .some() method to check if testing your msg on any of your denyList regular expressions returns true.
+
+Use regex as the parameter for the callback function, for clarity.
+const isSpam = (msg) => denyList.some((regex) => regex.test(msg));
+
+Spam messages often use numbers instead of letters to bypass filters. Your regular expression should catch these.
+
+Replace the e characters in your regular expression with character classes that match e and 3.
+const freeRegex = /fr[e3][e3] mon[e3]y/i;
+
+If you try entering the message free money, you'll notice it doesn't match your expression! This is because \s doesn't match the beginning or end of the text.
+
+To match the beginning of the text, you can use the ^ anchor. This asserts that your pattern match starts at the beginning of the full string.
+
+Replace your first \s character with a non-capturing group that matches \s or ^.
+const freeRegex = /(?:\s|^)fr[e3][e3] m[o0]n[e3]y(?:\s|^)/i;
+
+
