@@ -1,0 +1,43 @@
+To test your code as you write it, mount an event listener to your sortButton element. It should listen for the "click" event, and take sortInputArray as the callback.
+sortButton.addEventListener("click", sortInputArray);
+Above code passes sortInputArray as a function reference. not a function call.
+
+Because you need to compare elements, you'll need to use a nested for loop. This loop should iterate through every element in the array except the last one. Use j as your inner loop's iterator variable.
+const bubbleSort = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length - 1; j++){
+      
+    }
+
+  }
+}
+
+For this algorithm, you'll want to use a while loop. This loop needs two conditions:
+
+First, it should not run beyond the beginning of the array (accessed with j).
+Second, the loop should not run after it finds a value smaller than the current value.
+To prevent an infinite loop, decrement j inside your loop.
+while( j >=0 && array[j] > currValue){
+  j--;
+}
+
+On each iteration of your while loop, it is finding an element that is larger than your current value. You need to move that element to the right to make room for your current value.
+
+Do so by assigning the value at the j index to the next index.
+const insertionSort = (array) => {
+  for (let i = 1; i < array.length; i++) {
+    const currValue = array[i];
+    let j = i - 1;
+
+    while (j >= 0 && array[j] > currValue) {
+array[j + 1] = array[j];
+      j--;
+    }
+  }
+}
+
+After your while loop, you need to insert your current value. Remember that your loop ends when j is either out of the array bounds, or when the value at j is less than your current value.
+
+Use the assignment operator to insert your current value into the correct index.
+array[j+1] = currValue;
+
