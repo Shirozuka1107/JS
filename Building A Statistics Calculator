@@ -33,7 +33,7 @@ const mean = sum / array.length;
 11/13/2024
 
 Using the implicit return of an arrow function, you can directly return the value of the .reduce() method divided by the length of the array, without having to assign any variables.
-array.reduce((acc, el) => acc + el, 0) / array.length; 
+const getMean = (array) => array.reduce((acc, el) => acc + el, 0) /array.length; 
 
 To display the value of mean, your app has a #mean element ready to go.
 Use a .querySelector to find that element, and then set its .textContent to the value of mean.
