@@ -30,6 +30,10 @@ this.products = this.items.push(product);
 In your forEach callback, you need to update the totalCountPerProduct object. Using the id of the current dessert as your property, update the value of the property to be the current value plus one. Do not use the addition assignment operator for this.
  totalCountPerProduct[dessert.id] = totalCountPerProduct[dessert.id] + 1;
 
+You now have a small bug. When you try to access a property of an object and the property doesn't exist, you get undefined. This means if the dessert isn't already present in the totalCountPerProduct object, you end up trying to add 1 to undefined, which results in NaN.
+To fix this, you can use the || operator to set the value to 0 if it doesn't exist. Wrap your right-hand totalCountPerProduct[dessert.id] in parentheses, and add || 0 to the end of the expression.
+totalCountPerProduct[dessert.id] = (totalCountPerProduct[dessert.id] || 0) + 1;
+
 Use .getElementById() to get the matching element - you'll be setting the id value to product-count-for-id${product.id}, so use a template literal to query that value.
 Assign your query to a currentProductCountSpan variable.
 const currentProductCountSpan = document.getElementById(`product-count-for-id${id}`)
