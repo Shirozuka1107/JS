@@ -41,3 +41,10 @@ const viewCount = (views) => {
     return views;
   }
 }
+
+Inside the if statement, destructure className and category from the allCategories[id] object.
+if (allCategories.hasOwnProperty(id)) {
+ const {className, category} = allCategories[id];
+  }
+};
+
