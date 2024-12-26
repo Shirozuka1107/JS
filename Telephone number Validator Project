@@ -1,0 +1,8 @@
+const userInput = document.getElementById("user-input");
+const checkBtn = document.getElementById("check-btn");
+const clearBtn = document.getElementById("clear-btn");
+
+document.getElementById("clear-btn").addEventListener("click", () => {
+  document.getElementById("results-div").innerHTML = 
+"";
+});
