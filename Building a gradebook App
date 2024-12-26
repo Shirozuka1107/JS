@@ -18,14 +18,15 @@ Use string concatenation (+) to build the message.
 Be careful with the punctuation and spaces in the message.
 
 function studentMsg(totalScores, studentScore) {
-let passFail 
-if(hasPassingGrade(studentScore)) {
-  passFail = "You passed the course."
-} else {
-  passFail = "You failed the course."
-}
-return "Class Average: " + getAverage(totalScores) + ". Your Grade: " + getGrade(studentScore) + ". " + passFail;
+const classAverage = getAverage(totalScores);
+const studentGrade = getGrade(studentScore);
 
+if (studentGrade != "F")
+{ return ("Class average: "+ classAverage + ". Your grade: " + studentGrade+ ". You passed the course.");
+ 
+} else {
+   return ("Class average: "+ classAverage + ". Your grade: " + studentGrade + ". You failed the course.");
+}
 }
 console.log(studentMsg([92, 88, 12, 77, 57, 100, 67, 38, 97, 89], 37));
 console.log(studentMsg([56, 23, 89, 42, 75, 11, 68, 34, 91, 19], 100));
